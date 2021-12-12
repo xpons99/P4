@@ -1,0 +1,6 @@
+1a nombre de trama
+2a guany de prediccio
+3a coef pred lineal ordre 1
+4a coef pred lineal ordre 2
+5a coef pred lineal ordre 3
+

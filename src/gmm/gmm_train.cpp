@@ -10,7 +10,7 @@ using namespace upc;
 
 const string DEF_INPUT_EXT = "mcp";
 const unsigned int DEF_ITERATIONS = 20;
-const float DEF_THR = 1e-3;
+const float DEF_THR = 1e-4;
 const unsigned int DEF_NMIXTURES = 5;
 const string DEF_GMMFILE = "output.gmc";
 
@@ -64,10 +64,12 @@ int main(int argc, const char *argv[]) {
   default:
     ;
   }
-
+  /// \DONE Random initialization
+  gmm.random_init(data,nmix);
   /// \TODO Apply EM to estimate GMM parameters (complete the funcion in gmm.cpp)
+  gmm.em(data, em_iterations, init_threshold, verbose);
 
-
+  /// \DONE applying EM to estimate GMM parameters
   //Create directory, if it is needed
   gmm_filename.checkDir();
   //Save gmm
@@ -80,6 +82,7 @@ int main(int argc, const char *argv[]) {
 
   return 0;  
 }
+
 
 int usage(const char *progname, int err)  {
   cerr << "\n";
