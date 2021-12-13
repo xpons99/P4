@@ -1,7 +1,0 @@
-[options]
-prefix = /home/xavi/PAV
-libdir = lib
-buildtype = release
-
-[properties]
-

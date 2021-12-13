@@ -56,18 +56,21 @@ int main(int argc, const char *argv[]) {
   /// initicialization accordingly.
   switch (init_method) {
   case 0:
+    gmm.random_init(data,nmix);
     break;
   case 1:
+    gmm.vq_lbg(data, nmix, init_iterations, init_threshold, verbose);
     break;
   case 2:
+    gmm.em_split(data, nmix, init_iterations, init_threshold, verbose);
     break;
   default:
     ;
   }
   /// \DONE Random initialization
-  gmm.random_init(data,nmix);
+ 
   /// \TODO Apply EM to estimate GMM parameters (complete the funcion in gmm.cpp)
-  gmm.em(data, em_iterations, init_threshold, verbose);
+  gmm.em(data, em_iterations, em_threshold, verbose);
 
   /// \DONE applying EM to estimate GMM parameters
   //Create directory, if it is needed

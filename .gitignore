@@ -3,5 +3,6 @@ lp/
 lpcc/
 mfcc/
 gmm/
+build/
 
 !src/gmm
