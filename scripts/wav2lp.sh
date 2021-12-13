@@ -9,7 +9,7 @@
 base=/tmp/$(basename $0).$$ 
 
 # Ensure cleanup of temporary files on exit
-trap cleanup EXIT  #Cuando se ejecute la instrucción EXIT, ejecute cleanup.
+trap cleanup EXIT #cuando se sale del programa (EXIT) se limpian las variables
 cleanup() {
    \rm -f $base.*
 }
@@ -23,7 +23,7 @@ lpc_order=$1
 inputfile=$2
 outputfile=$3
 
-UBUNTU_SPTK=1
+UBUNTU_SPTK=1 
 if [[ $UBUNTU_SPTK == 1 ]]; then
    # In case you install SPTK using debian package (apt-get)
    X2X="sptk x2x"
@@ -38,8 +38,8 @@ else
    LPC="lpc"
 fi
 
-# Main command for feature extration
-sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |    #El X2X permite cambiar el formato de todos los archivos de un fichero a otro.
+# Main command for feature extration  #convertim de short a float #trama  #enfinestrem 
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
 	$LPC -l 240 -m $lpc_order > $base.lp
 
 # Our array files need a header with the number of cols and rows:

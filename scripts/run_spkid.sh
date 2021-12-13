@@ -13,9 +13,9 @@
 # - name_exp: name of the experiment
 # - db:       directory of the speecon database 
 lists=lists
-w=work
-name_exp=one  #Sirve para hacer distintos experimentos con parámetros distintos cambiando el one por otro número
-db=spk_8mu/speecon
+w=work 
+name_exp=one #hacer distintos experimentos cambiando el nombre de variable (two por ejemplo)
+db=spk_8mu/speecon 
 
 # ------------------------
 # Usage
@@ -112,21 +112,23 @@ fi
 # ---------------------------------
 
 
+
 for cmd in $*; do
    echo `date`: $cmd '---';
 
    if [[ $cmd == train ]]; then
        ## @file
 	   # \TODO
+
 	   # Select (or change) good parameters for gmm_train
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.001 -N5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train -v 1 -T 0.001 -N20 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
