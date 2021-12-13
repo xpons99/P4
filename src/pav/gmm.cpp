@@ -113,7 +113,7 @@ namespace upc {
     for (n=0; n<data.nrow(); ++n) {
       /// \TODO Compute the logprob of a single frame of the input data; you can use gmm_logprob() above.
       /// \DONE calculado el logaritmo de la probabilitat del GMM 
-      lprob = lprob + gmm_logprob(data[n]);
+      lprob += gmm_logprob(data[n]);
     }    
     return lprob/n;
   }
@@ -213,13 +213,16 @@ namespace upc {
       // Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
       // increase more than inc_threshold.
     /// \DONE Expectation Maximization
-      new_prob = em_expectation(data, weights);
-      em_maximization(data, weights);
+      
+      if (iteration == 0 || inc_prob > inc_threshold){
+        
+        new_prob = em_expectation(data, weights);
+        em_maximization(data, weights);
 
-      inc_prob = new_prob - old_prob;
-      old_prob = new_prob;
-
-      if (fabs(inc_prob) < inc_threshold) return 0;
+        inc_prob = new_prob - old_prob;
+        old_prob = new_prob;
+      }
+      else return 0;
       
         
       if (verbose & 01)
