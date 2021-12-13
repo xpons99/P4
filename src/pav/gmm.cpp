@@ -1,4 +1,4 @@
-/* Copyright (C) Universitat Politècnica de Catalunya, Barcelona, Spain.
+/* Copyright (C) Universitat Politï¿½cnica de Catalunya, Barcelona, Spain.
  *
  * Permission to copy, use, modify, sell and distribute this software
  * is granted provided this copyright notice appears in all copies.
@@ -101,7 +101,7 @@ namespace upc {
   }
 
   /// \TODO Compute the logprob for the whole input data.
-  float GMM::logprob(const fmatrix &data) const {    
+  float GMM::logprob(const fmatrix &data) const {    //Es el producto de todas las probabilidades, pero lo haremos en escala logarÃ­tmica, es decir, sumaremos los logaritmos.
 
     if (nmix == 0 or vector_size == 0 or vector_size != data.ncol())
       return -1e38F;

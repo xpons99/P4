@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=one
+name_exp=one  #Sirve para hacer distintos experimentos con parámetros distintos cambiando el one por otro número
 db=spk_8mu/speecon
 
 # ------------------------
@@ -85,11 +85,11 @@ fi
 # Create your own features with the name compute_$FEAT(), where $FEAT is the name of the feature.
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
-compute_lp() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+compute_lp() { #Para todos los filenames en esos 2 ficheros de guía, primero hace el directorio donde va a ir el fichero, despúes se define el comando
+    for filename in $(sort $lists/class/all.train $lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
-        echo $EXEC && $EXEC || exit 1
+        echo $EXEC && $EXEC || exit 1           #Si la orden fracasa hacemos exit 1
     done
 }
 

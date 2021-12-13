@@ -9,7 +9,7 @@
 base=/tmp/$(basename $0).$$ 
 
 # Ensure cleanup of temporary files on exit
-trap cleanup EXIT
+trap cleanup EXIT  #Cuando se ejecute la instrucción EXIT, ejecute cleanup.
 cleanup() {
    \rm -f $base.*
 }
@@ -39,12 +39,12 @@ else
 fi
 
 # Main command for feature extration
-sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |    #El X2X permite cambiar el formato de todos los archivos de un fichero a otro.
 	$LPC -l 240 -m $lpc_order > $base.lp
 
 # Our array files need a header with the number of cols and rows:
 ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
-nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
+nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`  #Se divide el número real de enteros del fichero y obtenemos las columnas.
 
 # Build fmatrix file by placing nrow and ncol in front, and the data after them
 echo $nrow $ncol | $X2X +aI > $outputfile
