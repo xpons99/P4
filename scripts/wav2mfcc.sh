@@ -15,7 +15,7 @@ cleanup() {
 }
 
 if [[ $# != 3 ]]; then
-   echo "$0 mfcc_order input.wav output.lp"
+   echo "$0 mfcc_order input.wav output.mfcc"
    exit 1
 fi
 
@@ -40,7 +40,7 @@ fi
 
 # Main command for feature extration  #convertim de short a float #trama  #enfinestrem 
 sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$MFCC -l 240 -m $mfcc_order > $base.mfcc
+	$MFCC -l 240 -m $mfcc_order -s 16 > $base.mfcc
 
 # Our array files need a header with the number of cols and rows:
 ncol=$((mfcc_order+1)) # mfcc p =>  (gain a1 a2 ... ap) 
