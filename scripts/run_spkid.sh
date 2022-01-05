@@ -97,6 +97,16 @@ compute_lp() { #Para todos los filenames en esos 2 ficheros de guía, primero ha
     done
 }
 
+compute_mfcc() { #Para todos los filenames en esos 2 ficheros de guía, primero hace el directorio donde va a ir el fichero, despúes se define el comando
+    db_sen=$1
+    shift 
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 8 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1           #Si la orden fracasa hacemos exit 1
+    done
+}
+
 
 #  Set the name of the feature (not needed for feature extraction itself)
 if [[ ! -n "$FEAT" && $# > 0 && "$(type -t compute_$1)" = function ]]; then
