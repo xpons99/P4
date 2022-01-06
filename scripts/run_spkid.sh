@@ -102,10 +102,21 @@ compute_mfcc() { #Para todos los filenames en esos 2 ficheros de guía, primero 
     shift 
     for filename in $(sort $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2mfcc 13 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2mfcc 8 17 35 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1           #Si la orden fracasa hacemos exit 1
     done
 }
+
+compute_lpcc() { #Para todos los filenames en esos 2 ficheros de guía, primero hace el directorio donde va a ir el fichero, despúes se define el comando
+    db_sen=$1
+    shift 
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 15 25 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1           #Si la orden fracasa hacemos exit 1
+    done
+}
+
 
 
 #  Set the name of the feature (not needed for feature extraction itself)
@@ -138,7 +149,7 @@ for cmd in $*; do
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train -v 1 -T 0.0001 -N 200 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train -v 1 -T 0.0001 -N 200 -m 60 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then

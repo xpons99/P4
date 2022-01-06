@@ -14,16 +14,15 @@ cleanup() {
    \rm -f $base.*
 }
 
-if [[ $# != 5 ]]; then
-   echo "$0 samplig_frequency mfcc_order channel_order input.wav output.mfcc"
+if [[ $# != 4 ]]; then
+   echo "$0 lpc_order cepstrum_order input.wav output.lp"
    exit 1
 fi
 
-sampling_frequency=$1
-mfcc_order=$2
-channel_order=$3
-inputfile=$4
-outputfile=$5
+lpc_order=$1
+cepstrum_order=$2
+inputfile=$3
+outputfile=$4
 
 UBUNTU_SPTK=1 
 if [[ $UBUNTU_SPTK == 1 ]]; then
@@ -31,25 +30,27 @@ if [[ $UBUNTU_SPTK == 1 ]]; then
    X2X="sptk x2x"
    FRAME="sptk frame"
    WINDOW="sptk window"
-   MFCC="sptk mfcc"
+   LPCC="sptk lpc2c"
+   LPC="sptk lpc"
 else
    # or install SPTK building it from its source
    X2X="x2x"
    FRAME="frame"
    WINDOW="window"
-   MFCC="mfcc"
+   LPCC="lpc2c"
+   LPC="lpc"
 fi
 
 # Main command for feature extration  #convertim de short a float #trama  #enfinestrem 
-sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$MFCC -l 240 -m $mfcc_order -s $sampling_frequency -n $channel_order > $base.mfcc
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 | $LPC -l 240 -m $lpc_order |
+	$LPCC -m $lpc_order -M $cepstrum_order > $base.lpcc
 
 # Our array files need a header with the number of cols and rows:
-ncol=$((mfcc_order)) # mfcc p =>  (gain a1 a2 ... ap) 
-nrow=`$X2X +fa < $base.mfcc | wc -l | perl -ne 'print $_/'$ncol', "\n";'`  #Se divide el número real de enteros del fichero y obtenemos las columnas.
+ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
+nrow=`$X2X +fa < $base.lpcc | wc -l | perl -ne 'print $_/'$ncol', "\n";'`  #Se divide el número real de enteros del fichero y obtenemos las columnas.
 
 # Build fmatrix file by placing nrow and ncol in front, and the data after them
 echo $nrow $ncol | $X2X +aI > $outputfile
-cat $base.mfcc >> $outputfile
+cat $base.lpcc >> $outputfile
 
 exit
