@@ -132,6 +132,12 @@ ejercicios indicados.
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
+  **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
+  
+  |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
+  |------------------------|:--------:|:--------:|:----------:|
+  | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
+  
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
 
 ### Entrenamiento y visualización de los GMM.
