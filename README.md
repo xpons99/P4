@@ -71,7 +71,7 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
-  ![](captures/pearson.PNG)
+  
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
@@ -80,9 +80,9 @@ ejercicios indicados.
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
-  |                        | LP   | LPCC | MFCC |
-  |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |      |      |      |
+  |                        |    LP    |   LPCC   |     MFCC   |
+  |------------------------|:--------:|:--------:|:----------:|
+  | &rho;<sub>x</sub>[2,3] | -0,77175 | 0.789342 | -0.214961  |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
