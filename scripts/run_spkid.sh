@@ -92,7 +92,7 @@ compute_lp() { #Para todos los filenames en esos 2 ficheros de guía, primero ha
     shift 
     for filename in $(sort $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lp 8 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lp 18 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1           #Si la orden fracasa hacemos exit 1
     done
 }
