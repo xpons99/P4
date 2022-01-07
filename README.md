@@ -86,7 +86,7 @@ ejercicios indicados.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
   fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f2,3 > lp_2_3.txt
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Cambiamos 'lp' por el nombre de la parametrización que queremos analizar.**
+  **Cambiamos 'lp' por la parametrización que queremos analizar (MFCC o LPCC).**
   ```python
   
   f = open('lp_2_3.txt', "r")
@@ -139,6 +139,8 @@ ejercicios indicados.
   | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
+  
+  **Para la parametrización MFCC, el orden de los coeficientes es suficiente que sea 13.**
 
 ### Entrenamiento y visualización de los GMM.
 
