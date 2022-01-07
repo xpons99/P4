@@ -32,7 +32,17 @@ ejercicios indicados.
 - Analice el script `wav2lp.sh` y explique la misión de los distintos comandos involucrados en el *pipeline*
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
-
+  
+  **El programa sox nos permite generar una señal con el formato adecuado a partir de otro formato. En nuestro programa el formato de entrada, identificado con el comando '-t' es raw (crudo). '-e' conforma la codificación en un formato 'signed' con '-b' dieciséis bits.**
+  
+  **El comando de SPTK x2x nos permite convertir datos de una entrada estandard a otro tipo de datos diferente. En nuestra línea de comando, convertimos short (2 bytes) a float (4 bytes) con la orden '+sf'.**
+  
+  **Frame extrae una trama de una secuencia de datos. de longitud '-l' y período '-p'.**
+  
+  **Window enventana una señal. La longitud de datos de entrada es la de la trama '-l' y el resultado del enventanado tiene una longitud '-L'.**
+  
+  **LPC calcula los coeficientes de predicción lineal de la trama de longitud '-l' y el orden de los coeficientes lo determinamos con '-m'.** 
+  
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
