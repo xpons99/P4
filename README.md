@@ -71,11 +71,56 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
-  ![](captures/coef2_3_lp.png)
+
+  
+  
+  ![](captures/coef2_3_lp.png) ![](captures/coef2_3_mfcc.png) ![](captures/coef2_3_lpcc.png)
   
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+    
+  **Usando un código de python hemos podido obtener las gráficas que relacionan los coeficientes 2 y 3 de cada una de las parametrizaciones.**
+  
+  **Usamos el siguiente comando para obtener los datos**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+  fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f2,3 > lp_2_3.txt
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Cambiamos 'lp' por el nombre de la parametrización que queremos analizar.**
+  ```python
+  
+  f = open('lp_2_3.txt', "r")
+  leer_lineas = f.read()
+  fil=[]
+  col=[]
+  x=""
+  y=""
+  tab = False
+  for i in leer_lineas:
+    if i != '\t' and tab == False:
+      x = x+i
+    
+    elif i == '\t':
+      fil.append(float(x))
+      tab = True
+
+    if tab == True and i != '\t' and i!='\n':
+      y = y + i
+    elif i == '\n':
+      col.append(float(y))
+      x=""
+      y=""
+      tab = False
+    
+  plt.scatter(fil,col,s = 0.1)
+  plt.title('Dependencia coeficientes 2 y 3. Param = lp')
+  plt.xlabel('Coef 2')
+  plt.ylabel('Coef 3')
+  plt.show()
+ 
+  ```
+  
+  
   + ¿Cuál de ellas le parece que contiene más información?
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
