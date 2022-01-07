@@ -123,6 +123,8 @@ ejercicios indicados.
   
   + ¿Cuál de ellas le parece que contiene más información?
 
+  **La parametrización MFCC porqué es la que tiene la dependencia de los coeficientes más dispersa.**
+
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
