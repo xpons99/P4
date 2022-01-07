@@ -140,7 +140,7 @@ ejercicios indicados.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
   
-  **Para la parametrización MFCC, el orden de los coeficientes es suficiente que sea 13.**
+  **Para la parametrización MFCC, el orden de los coeficientes es suficiente que sea 13 ya que a partir de ahí la mejora no es significativa y se usan entre 24 y 40 bandas de frecuencia. Para los coeficientes LPCC, es común usar a partir de 12 coeficientes.**
 
 ### Entrenamiento y visualización de los GMM.
 
