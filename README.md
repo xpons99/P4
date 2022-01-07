@@ -46,9 +46,13 @@ ejercicios indicados.
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
+  
+    **Para obtener el fichero fmatrix a partir de los ficheros de salida de sptk el número de columnas se calcula a partir del orden del predictor lineal. La obtención del número de filas depende de la longitud de la señal, longitud y desplazamiento de la ventana, y la cadena de comandos que se ejecutan para obtener la parametrización. Para simplificar la tarea, convertimos la señal parametrizada a texto usando X2X +fa y contamos el número de líneas con el comando wc -l de UNIX.**
 
   * ¿Por qué es conveniente usar este formato (u otro parecido)? Tenga en cuenta cuál es el formato de
     entrada y cuál es el de resultado.
+    
+    **Es conveniente porque de esta manera podemos guardar los coeficientes que creamos necesarios de los ficheros de un locutor en concreto en un fichero. Como se verá a continuación con los coeficientes 2 y 3.**
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
@@ -133,6 +137,7 @@ ejercicios indicados.
   | &rho;<sub>x</sub>[2,3] | -0.87228 | 0.769145 | -0.146628  |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+
 **Los resultados son los esperados puesto que un valor cercano a +-1 del coeficiente Pearson implica una alta correlación mientras que un valor cercano al 0 implica una mayor incorrelación. Observando los valores obtenidos, vemos como la parametrización MFCC es la que nos genera un coeficiente de Pearson más cercano a 0, por lo que la información que nos proporciona cada componente es mayor que en las otras 2 parametrizaciones.**
   
   **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
@@ -140,6 +145,8 @@ ejercicios indicados.
   |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
   |------------------------|:--------:|:--------:|:----------:|
   | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
+  
+  **Observamos que los valores obtenidos con LPCC y MFCC son muy parecidos a los calculados con Pearson mientras que en el caso de LP difiere bastante.**
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
   
@@ -152,9 +159,9 @@ Complete el código necesario para entrenar modelos GMM.
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
   
-  ![Gráfica con 2 primeros coeficientes de MFCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/GMM_2coeff_MFCC.PNG)
+  ![Gráfica con 2 primeros coeficientes de MFCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/GMM_2coeff_MFCC_SES008.PNG)
   
-  **Podemos observar como, en este caso, la población modelada no presenta un carácter multimodal.**
+  **Podemos observar como, en este caso, la población modelada sí presenta un carácter multimodal aunque con el GMM podemos modelarlo correctamente.**
   
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
@@ -171,9 +178,15 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
   
+  ![Error LP](https://github.com/xpons99/P4/blob/garcia-pons/captures/lp18T0.0001N200m60i1.PNG)
+  
+  ![Error LPCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/lpcc1525T0.0001N200m60i1.PNG)
+  
+  ![Error MFCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/error_rate.png)
+  
   |               |    LP    |   LPCC   |    MFCC   |
-  |---------------|:--------:|:--------:|:----------:|
-  | Tasa de error | -0.87228 | 0.769145 |   1.15%   |
+  |---------------|:--------:|:--------:|:---------:|
+  | Tasa de error |  7.01%   |   3.31%  |   0.76%   |
 
 ### Verificación del locutor.
 
@@ -184,11 +197,16 @@ Complete el código necesario para realizar verificación del locutor y optimice
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
   
-  **Nuestro mejor sistema de verificación del locutor lo hemos obtenido usando MFCC y presentaba las características siguientes: **
+  **Nuestro mejor sistema de verificación del locutor lo hemos obtenido usando MFCC y presentaba las características siguientes:**
   
-  |               |    LP    |   LPCC   |    MFCC   |
-  |---------------|:--------:|:--------:|:----------:|
-  | Tasa de error | -0.87228 | 0.769145 |   1.15%   |
+  ![Verif_err MFCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/verif_err.png)
+  
+  |                  |   MFCC   |
+  |------------------|:--------:|
+  |   Umbral óptimo  |  0.0413  | 
+  | # Falsas Alarmas |  7/1000  |
+  |    # Perdidas    |  16/250  |
+  |       Score      |   12,7   |
  
 ### Test final
 
