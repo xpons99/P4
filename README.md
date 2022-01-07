@@ -142,6 +142,16 @@ ejercicios indicados.
   
   **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
   
+  ```python
+  
+  fil = np.array(fil)
+  col = np.array(col)
+
+  pearson_python = np.corrcoef(fil,col)
+  pearson_python
+  
+  ```
+  
   |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
   |------------------------|:--------:|:--------:|:----------:|
   | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
@@ -187,6 +197,19 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   |               |    LP    |   LPCC   |    MFCC   |
   |---------------|:--------:|:--------:|:---------:|
   | Tasa de error |  7.01%   |   3.31%  |   0.76%   |
+  
+  **Los parámetros usados para la parametrización de cada sistema son:**
+  	+ LP: Hemos usado 18 coeficientes.
+  	+ LPCC: Hemos usado 15 coeficientes LPC y 25 coeficientes cepstrales.
+  	+ MFCC: Hemos usado una frecuencia de muestreo de 8kHz, 17 coeficientes MFCC y un orden de canal 35 para el banco de filtros de MEL.
+  	
+  **En cuanto a los parámetros de entrenamiento, establecimos lo siguiente:**
+	+ Threshold: 0.0001.
+	+ Número de iteraciones: Establecimos 200 aunque muchas veces se acababa antes de llegar debido al threshold.
+	+ Número de Gaussianas: Pusimos 60 para obtener un buen modelado y podríamos usar más aunque la mejora no compensaba el augmento en el coste computacional.
+	+ Inicializacion: Obtuvimos unos mejores resultados usando la inicialización VQ.
+	
+**Después de probar con diversos parámetros y parametrizaciones, valga la redundancia, concluimos que el sistema que menor error presentaba era el MFCC.**
 
 ### Verificación del locutor.
 
@@ -207,6 +230,8 @@ Complete el código necesario para realizar verificación del locutor y optimice
   | # Falsas Alarmas |  7/1000  |
   |    # Perdidas    |  16/250  |
   |       Score      |   12,7   |
+ 
+ **En el caso del score el sistema que mejor resultado nos daba también fue el MFCC, obteniendo un coste de 12,7, resultado de tener 16 pérdidas y 7 Falsas Alarmas. Creemos que podría ser menor pero aún así hay que destacar que ha dejado pasar únicamente a 7 impostores de 1000 y, teniendo en cuenta la confidencialidad de lo guardado bajo reconocimiento de voz, afecta más el hecho de dejar pasar a un intruso que no dejar pasar a un usuario legítimo.**
  
 ### Test final
 
