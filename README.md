@@ -71,6 +71,7 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
+  ![](captures/coef2_3_lp.png)
   
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
