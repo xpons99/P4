@@ -123,7 +123,7 @@ ejercicios indicados.
   
   + ¿Cuál de ellas le parece que contiene más información?
 
-  **La parametrización MFCC porqué es la que tiene la dependencia de los coeficientes más dispersa.**
+**La información de cada una está relacionada con la correlación entre componentes, ya que la información que nos proporciona un componente es mayor cuanto menor sea la correlación o, mejor dicho, cuanto mayor sea la intercorrelación. Observando las 3 gráficas generadas con los coeficientes 2 y 3 de cada una de las parametrizaciones, vemos que aquella en la que están más dispersos es en la de los coeficientes MFCC, por lo que se puede derivar a una mayor incorrelación entre ellos, lo que supone en una cantidad de información mayor.**
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
@@ -133,19 +133,9 @@ ejercicios indicados.
   | &rho;<sub>x</sub>[2,3] | -0.87228 | 0.769145 | -0.146628  |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+**Los resultados son los esperados puesto que un valor cercano a +-1 del coeficiente Pearson implica una alta correlación mientras que un valor cercano al 0 implica una mayor incorrelación. Observando los valores obtenidos, vemos como la parametrización MFCC es la que nos genera un coeficiente de Pearson más cercano a 0, por lo que la información que nos proporciona cada componente es mayor que en las otras 2 parametrizaciones.**
   
   **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
-  
-  ```python
-  
-  fil = np.array(fil)
-  col = np.array(col)
-
-  pearson_python = np.corrcoef(fil,col)
-  pearson_python
-  
-  ```
-  
   
   |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
   |------------------------|:--------:|:--------:|:----------:|
@@ -162,9 +152,17 @@ Complete el código necesario para entrenar modelos GMM.
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
   
+  ![Gráfica con 2 primeros coeficientes de MFCC](https://github.com/xpons99/P4/blob/garcia-pons/captures/GMM_2coeff_MFCC.PNG)
+  
+  **Podemos observar como, en este caso, la población modelada no presenta un carácter multimodal.**
+  
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
+  
+  ![Gráfica de comparación modelos y poblaciones de 2 locutores distintos](https://github.com/xpons99/P4/blob/garcia-pons/captures/Modelos_locutores_4.PNG)
+  
+  **Observando estas imágenes se puede destacar la gran adaptación que tiene el modelo de cada locutor a sus propios datos, por lo que en estos casos el uso del modelado GMM nos permite una buena diferenciación entre las señales de uno y otro.**
 
 ### Reconocimiento del locutor.
 
@@ -173,9 +171,9 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
   
-  **La parametrización que hemos usado que mejores resultados nos da es la MFCC. Se puede observar en la siguiente imagen la tasa de error obtenida.**
-  
-  ![](captures/error_rate.png)
+  |               |    LP    |   LPCC   |    MFCC   |
+  |---------------|:--------:|:--------:|:----------:|
+  | Tasa de error | -0.87228 | 0.769145 |   1.15%   |
 
 ### Verificación del locutor.
 
@@ -186,7 +184,11 @@ Complete el código necesario para realizar verificación del locutor y optimice
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
   
-  ![](captures/verif_err.png)
+  **Nuestro mejor sistema de verificación del locutor lo hemos obtenido usando MFCC y presentaba las características siguientes: **
+  
+  |               |    LP    |   LPCC   |    MFCC   |
+  |---------------|:--------:|:--------:|:----------:|
+  | Tasa de error | -0.87228 | 0.769145 |   1.15%   |
  
 ### Test final
 
