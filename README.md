@@ -161,6 +161,7 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
   
   **La parametrización que hemos usado que mejores resultados nos da es la MFCC. Se puede observar en la siguiente imagen la tasa de error obtenida.**
+  
   ![](captures/error_rate.png)
 
 ### Verificación del locutor.
