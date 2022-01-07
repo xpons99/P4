@@ -136,6 +136,17 @@ ejercicios indicados.
   
   **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
   
+  ```python
+  
+  fil = np.array(fil)
+  col = np.array(col)
+
+  pearson_python = np.corrcoef(fil,col)
+  pearson_python
+  
+  ```
+  
+  
   |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
   |------------------------|:--------:|:--------:|:----------:|
   | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
