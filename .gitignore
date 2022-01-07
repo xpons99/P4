@@ -4,5 +4,14 @@ lpcc/
 mfcc/
 gmm/
 build/
+prova.lp/
+SES000.gmm/
+data.cep/
+locutor_lp.gmm/
+prova.mfcc/
+prova.cep/
+locutor.gmm/
+locutor_mfcc.gmm/
+
 
 !src/gmm
