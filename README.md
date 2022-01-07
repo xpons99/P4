@@ -71,10 +71,56 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
+
+  
+  
+  ![](captures/coef2_3_lp.png) ![](captures/coef2_3_mfcc.png) ![](captures/coef2_3_lpcc.png)
   
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+    
+  **Usando un código de python hemos podido obtener las gráficas que relacionan los coeficientes 2 y 3 de cada una de las parametrizaciones.**
+  
+  **Usamos el siguiente comando para obtener los datos**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+  fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f2,3 > lp_2_3.txt
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Cambiamos 'lp' por la parametrización que queremos analizar (MFCC o LPCC).**
+  ```python
+  
+  f = open('lp_2_3.txt', "r")
+  leer_lineas = f.read()
+  fil=[]
+  col=[]
+  x=""
+  y=""
+  tab = False
+  for i in leer_lineas:
+    if i != '\t' and tab == False:
+      x = x+i
+    
+    elif i == '\t':
+      fil.append(float(x))
+      tab = True
+
+    if tab == True and i != '\t' and i!='\n':
+      y = y + i
+    elif i == '\n':
+      col.append(float(y))
+      x=""
+      y=""
+      tab = False
+    
+  plt.scatter(fil,col,s = 0.1)
+  plt.title('Dependencia coeficientes 2 y 3. Param = lp')
+  plt.xlabel('Coef 2')
+  plt.ylabel('Coef 3')
+  plt.show()
+ 
+  ```
+  
+  
   + ¿Cuál de ellas le parece que contiene más información?
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
@@ -82,11 +128,19 @@ ejercicios indicados.
 
   |                        |    LP    |   LPCC   |     MFCC   |
   |------------------------|:--------:|:--------:|:----------:|
-  | &rho;<sub>x</sub>[2,3] | -0,77175 | 0.789342 | -0.214961  |
+  | &rho;<sub>x</sub>[2,3] | -0.87228 | 0.769145 | -0.146628  |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
+  **Mediante otro script de python obtenemos el valor del parámetro de pearson a partir de los datos que constituyen los gráficos.**
+  
+  |    De nuestros datos   |    LP    |   LPCC   |     MFCC   |
+  |------------------------|:--------:|:--------:|:----------:|
+  | &rho;<sub>x</sub>[2,3] | -0.18018 |  0.76197 |  -0.13334  |
+  
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
+  
+  **Para la parametrización MFCC, el orden de los coeficientes es suficiente que sea 13.**
 
 ### Entrenamiento y visualización de los GMM.
 
